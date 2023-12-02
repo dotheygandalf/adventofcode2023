@@ -13,16 +13,38 @@ const numberWords = [
   "nine",
 ];
 
-const checkFirstIndex = (input: string) => {
-  return numberWords.map((number) => {
+const numberNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+const checkFirstIndex = <T>(input: string, array: string[]) => {
+  return array.map((number) => {
     return input.indexOf(number);
   });
 };
 
-const checkSecondIndex = (input: string) => {
-  return numberWords.map((number) => {
+const checkSecondIndex = (input: string, array: string[]) => {
+  return array.map((number) => {
     return input.lastIndexOf(number);
   });
+};
+
+const getIndexOfFirstOccurance = (occurrences: number[]) => {
+  let indexOfFirstWord = Number.MAX_SAFE_INTEGER;
+  for (let k = 0; k < occurrences.length; k++) {
+    if (occurrences[k] > -1 && occurrences[k] < indexOfFirstWord) {
+      indexOfFirstWord = occurrences[k];
+    }
+  }
+  return indexOfFirstWord;
+};
+
+const getIndexOfLastOccurance = (occurrences: number[]) => {
+  let indexofLastOccurance = -1;
+  for (let l = 0; l < occurrences.length; l++) {
+    if (occurrences[l] > indexofLastOccurance) {
+      indexofLastOccurance = occurrences[l];
+    }
+  }
+  return indexofLastOccurance;
 };
 
 const run = async (file: string) => {
@@ -30,46 +52,30 @@ const run = async (file: string) => {
 
   const answer = input.reduce<number>((prev, curr) => {
     const letters = curr.split("");
-    let indexOfFirstNumber = -1;
-    let indexOfSecondNumber = -1;
-    for (let i = 0; i < letters.length; i++) {
-      if (!Number.isNaN(Number(letters[i]))) {
-        indexOfFirstNumber = i;
-        break;
-      }
-    }
-    for (let j = letters.length - 1; j >= 0; j--) {
-      if (!Number.isNaN(Number(letters[j]))) {
-        indexOfSecondNumber = j;
-        break;
-      }
-    }
 
     let firstNumber, secondNumber;
-    const numbersThatAreWords = checkFirstIndex(curr);
-    const secondNumbersThatAreWords = checkSecondIndex(curr);
+    const firstNumbersThatAreNumbers = checkFirstIndex(curr, numberNumbers);
+    const firstNumbersThatAreWords = checkFirstIndex(curr, numberWords);
+    const secondNumbersThatAreNumbers = checkSecondIndex(curr, numberNumbers);
+    const secondNumbersThatAreWords = checkSecondIndex(curr, numberWords);
 
-    let indexOfFirstWord = Number.MAX_SAFE_INTEGER;
-    for (let k = 0; k < numbersThatAreWords.length; k++) {
-      if (
-        numbersThatAreWords[k] > -1 &&
-        numbersThatAreWords[k] < indexOfFirstWord
-      ) {
-        indexOfFirstWord = numbersThatAreWords[k];
-      }
-    }
-    let indexofSecondWord = -1;
-    for (let l = 0; l < secondNumbersThatAreWords.length; l++) {
-      if (secondNumbersThatAreWords[l] > indexofSecondWord) {
-        indexofSecondWord = secondNumbersThatAreWords[l];
-      }
-    }
+    const indexOfFirstNumber = getIndexOfFirstOccurance(
+      firstNumbersThatAreNumbers
+    );
+    const indexOfFirstWord = getIndexOfFirstOccurance(firstNumbersThatAreWords);
+    const indexOfSecondNumber = getIndexOfLastOccurance(
+      secondNumbersThatAreNumbers
+    );
+    const indexOfSecondWord = getIndexOfLastOccurance(
+      secondNumbersThatAreWords
+    );
 
     // console.debug(secondNumbersThatAreWords);
 
-    const valueOfFirstWord = numbersThatAreWords.indexOf(indexOfFirstWord) + 1;
+    const valueOfFirstWord =
+      firstNumbersThatAreWords.indexOf(indexOfFirstWord) + 1;
     const valueOfSecondWord =
-      secondNumbersThatAreWords.indexOf(indexofSecondWord) + 1;
+      secondNumbersThatAreWords.indexOf(indexOfSecondWord) + 1;
 
     if (indexOfFirstNumber === -1 || indexOfFirstWord < indexOfFirstNumber) {
       firstNumber = valueOfFirstWord;
@@ -77,8 +83,7 @@ const run = async (file: string) => {
       firstNumber = letters[indexOfFirstNumber];
     }
 
-    console.debug(indexofSecondWord, indexOfSecondNumber);
-    if (indexOfSecondNumber === -1 || indexofSecondWord > indexOfSecondNumber) {
+    if (indexOfSecondNumber === -1 || indexOfSecondWord > indexOfSecondNumber) {
       secondNumber = valueOfSecondWord;
     } else {
       secondNumber = letters[indexOfSecondNumber];
