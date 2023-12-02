@@ -47,12 +47,21 @@ const getIndexOfLastOccurrence = (occurrences: number[]) => {
 export interface IProcessed {
   line: string;
   output: number;
+  outputFirstNumber: number;
+  outputSecondNumber: number;
+  firstNumber: Position;
+  secondNumber: Position;
+}
+
+interface Position {
+  start: number;
+  length: number;
 }
 
 export const processLine = (input: string): IProcessed => {
   const letters = input.split("");
 
-  let firstNumber, secondNumber;
+  let outputFirstNumber, outputSecondNumber, firstNumber, secondNumber;
   const firstNumbersThatAreNumbers = checkFirstIndex(input, numberNumbers);
   const firstNumbersThatAreWords = checkFirstIndex(input, numberWords);
   const secondNumbersThatAreNumbers = checkSecondIndex(input, numberNumbers);
@@ -75,22 +84,43 @@ export const processLine = (input: string): IProcessed => {
     secondNumbersThatAreWords.indexOf(indexOfSecondWord) + 1;
 
   if (indexOfFirstNumber === -1 || indexOfFirstWord < indexOfFirstNumber) {
-    firstNumber = valueOfFirstWord;
+    outputFirstNumber = valueOfFirstWord;
+    firstNumber = {
+      start: indexOfFirstWord,
+      length: numberWords[valueOfFirstWord - 1]?.length - 1,
+    };
   } else {
-    firstNumber = letters[indexOfFirstNumber];
+    outputFirstNumber = parseInt(letters[indexOfFirstNumber]);
+    firstNumber = {
+      start: indexOfFirstNumber,
+      length: 0,
+    };
   }
 
   if (indexOfSecondNumber === -1 || indexOfSecondWord > indexOfSecondNumber) {
-    secondNumber = valueOfSecondWord;
+    outputSecondNumber = valueOfSecondWord;
+    secondNumber = {
+      start: indexOfSecondWord,
+      length: numberWords[valueOfSecondWord - 1]?.length - 1,
+    };
   } else {
-    secondNumber = letters[indexOfSecondNumber];
+    outputSecondNumber = parseInt(letters[indexOfSecondNumber], 10);
+    secondNumber = {
+      start: indexOfSecondNumber,
+      length: 0,
+    };
   }
 
-  console.log(input, Number(`${firstNumber}${secondNumber}`));
-  return {
+  const output = {
     line: input,
-    output: Number(`${firstNumber}${secondNumber}`),
+    firstNumber,
+    secondNumber,
+    output: Number(`${outputFirstNumber}${outputSecondNumber}`),
+    outputFirstNumber,
+    outputSecondNumber,
   };
+  console.log(output);
+  return output;
 };
 
 export const run = async (input: string[]) => {
