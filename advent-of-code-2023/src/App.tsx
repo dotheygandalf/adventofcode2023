@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <>
-      <div>
+      <div className="grid grid-cols-2">
         {output.map((line) => {
           return (
             <>
