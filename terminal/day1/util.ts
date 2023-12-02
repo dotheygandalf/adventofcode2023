@@ -44,7 +44,12 @@ const getIndexOfLastOccurrence = (occurrences: number[]) => {
   return indexofLastOccurrence;
 };
 
-export const processLine = (input: string) => {
+export interface IProcessed {
+  line: string;
+  output: number;
+}
+
+export const processLine = (input: string): IProcessed => {
   const letters = input.split("");
 
   let firstNumber, secondNumber;
@@ -82,12 +87,15 @@ export const processLine = (input: string) => {
   }
 
   console.log(input, Number(`${firstNumber}${secondNumber}`));
-  return Number(`${firstNumber}${secondNumber}`);
+  return {
+    line: input,
+    output: Number(`${firstNumber}${secondNumber}`),
+  };
 };
 
 export const run = async (input: string[]) => {
   const answer = input.reduce<number>((prev, curr) => {
-    const output = processLine(curr);
+    const { output } = processLine(curr);
     return prev + output;
   }, 0);
 
