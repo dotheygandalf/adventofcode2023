@@ -1,5 +1,5 @@
 import path from "path";
-import { getData } from "../utils/readFile";
+import { getData } from "../../../../terminal/utils/readFile";
 
 const run_part_1 = async (file: string) => {
   const input = await getData(path.resolve(__dirname, file));
