@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { plainText as input } from "../../../data/day2/input_1.text";
-import over9000 from "../../public/john-swan-9000.png";
+import over9000 from "../../public/john-swan-9000-alt.png";
 import over90002 from "../../public/john-swan-9000-2.png";
 import { useInterval } from "../hooks/useInterval";
 import { parseGame } from "../../../terminal/day2";
