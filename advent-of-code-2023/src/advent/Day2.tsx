@@ -141,7 +141,7 @@ export const Day2 = () => {
 
           if (power > 9000) {
             context.font = "40px Impact";
-            context.fillText(`It's over 9000!`, 420, 430);
+            context.fillText(`It's over 9000!`, 420, 405);
           }
 
           const speechBubbleImg = new Image();
