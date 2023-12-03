@@ -11,11 +11,11 @@ console.log(import.meta.env.MODE);
 
 const router = createHashRouter([
   {
-    path: "/adventofcode2023",
+    path: "/",
     element: <App />,
   },
   {
-    path: "/adventofcode2023/day1",
+    path: "/day1",
     element: (
       <>
         <Day
@@ -29,7 +29,7 @@ digit number."
     ),
   },
   {
-    path: "/adventofcode2023/day2",
+    path: "/day2",
     element: (
       <>
         <Day
