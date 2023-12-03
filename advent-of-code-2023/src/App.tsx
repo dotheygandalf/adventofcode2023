@@ -6,11 +6,12 @@ const days = [1, 2];
 const App = () => {
   return (
     <>
+      <h1>Advent of Code 2023</h1>
       {days.map((day) => {
         return (
-          <h1>
+          <h2>
             <Link to={`day${day}`}>Day {day}</Link>
-          </h1>
+          </h2>
         );
       })}
     </>
