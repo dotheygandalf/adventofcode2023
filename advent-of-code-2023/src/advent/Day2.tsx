@@ -139,6 +139,9 @@ export const Day2 = () => {
           context.font = "26px monospace";
           context.fillText(`Power: ${power}`, 150, 570);
 
+          context.font = "26px monospace";
+          context.fillText(`${game.game}`, 150, 395);
+
           if (power > 9000) {
             context.font = "40px Impact";
             context.fillText(`It's over 9000!`, 420, 405);
