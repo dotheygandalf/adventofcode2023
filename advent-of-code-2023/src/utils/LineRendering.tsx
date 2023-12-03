@@ -1,5 +1,3 @@
-import classNames from "classnames";
-
 export interface IHighlight {
   start: number;
   length: number;
