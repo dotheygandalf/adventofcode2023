@@ -9,7 +9,11 @@ import { Day2 } from "./advent/Day2.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/adventofcode2023",
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/adventofcode2023/",
     element: <App />,
   },
   {
