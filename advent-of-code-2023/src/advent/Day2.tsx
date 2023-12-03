@@ -1,10 +1,26 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { plainText as input } from "../../../data/day2/input_1.text";
 import blankPage from "../../public/d54.jpg";
+import { useInterval } from "../hooks/useInterval";
+import { parseGame } from "../../../terminal/day2";
 
 export const Day2 = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  useEffect(() => {
+  const games = input.split("\n");
+  const allGames = games.map((game) => parseGame(game)).flat();
+
+  let gameCount = 0,
+    power = 0;
+  let currentGame = "";
+  useInterval(() => {
+    if (gameCount >= allGames.length) {
+      gameCount = 0;
+      power = 0;
+      return;
+    }
+
+    const game = allGames[gameCount];
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
@@ -26,26 +42,99 @@ export const Day2 = () => {
           // context.imageSmoothingEnabled = false;
           context.drawImage(image, x, y, newWidth, newHeight);
 
-          //blue
-          context.fillStyle = "#2d48b7";
-          context.fillRect(150, 410, 170, 30);
+          const SQUARE_SIZE = 20;
 
-          context.fillStyle = "#1e307a";
-          context.fillRect(150, 410, 130, 30);
+          //blue
+          context.fillStyle = "#121d4b";
+          for (let i = 0; i < game.max.blueMax; i++) {
+            context.fillRect(
+              150 + i * SQUARE_SIZE + i * 2,
+              410,
+              SQUARE_SIZE,
+              SQUARE_SIZE
+            );
+          }
+
+          context.fillStyle = "#314fc9";
+          for (let i = 0; i < game.result.blue; i++) {
+            context.fillRect(
+              150 + i * SQUARE_SIZE + i * 2,
+              410,
+              SQUARE_SIZE,
+              SQUARE_SIZE
+            );
+            context.save();
+          }
+          context.font = "10px monospace";
+          context.fillStyle = "black";
+          context.fillText(`Blue: ${game.result.blue}`, 150, 442);
 
           //green
+          context.fillStyle = "#0e2409";
+          for (let i = 0; i < game.max.greenMax; i++) {
+            context.fillRect(
+              150 + i * SQUARE_SIZE + i * 2,
+              450,
+              SQUARE_SIZE,
+              SQUARE_SIZE
+            );
+            context.save();
+          }
           context.fillStyle = "#307a1e";
-          context.fillRect(150, 450, 150, 30);
+          for (let i = 0; i < game.result.green; i++) {
+            context.fillRect(
+              150 + i * SQUARE_SIZE + i * 2,
+              450,
+              SQUARE_SIZE,
+              SQUARE_SIZE
+            );
+            context.save();
+          }
+          context.font = "10px monospace";
+          context.fillStyle = "black";
+          context.fillText(`Green: ${game.result.green}`, 150, 482);
 
           //red
-          context.fillStyle = "#7a1e30";
-          context.fillRect(150, 490, 180, 30);
+          context.fillStyle = "#4b121d";
+          for (let i = 0; i < game.max.redMax; i++) {
+            context.fillRect(
+              150 + i * SQUARE_SIZE + i * 2,
+              490,
+              SQUARE_SIZE,
+              SQUARE_SIZE
+            );
+            context.save();
+          }
+          context.fillStyle = "#c9314f";
+          for (let i = 0; i < game.result.red; i++) {
+            context.fillRect(
+              150 + i * SQUARE_SIZE + i * 2,
+              490,
+              SQUARE_SIZE,
+              SQUARE_SIZE
+            );
+            context.save();
+          }
+          context.font = "10px monospace";
+          context.fillStyle = "black";
+          context.fillText(`Red: ${game.result.red}`, 150, 522);
+
+          if (currentGame !== game.game) {
+            power += game.power;
+            currentGame = game.game;
+          }
+
+          context.font = "26px monospace";
+          context.fillText(`Power: ${power}`, 150, 570);
         };
       }
+      // setGameCount((prev) => prev + 1);
+      gameCount++;
     }
-  }, [canvasRef]);
+  }, 100);
+
   return (
-    <div className="pl-20 pt-10">
+    <div className="pl-20 pt-10f">
       <canvas ref={canvasRef} width={835} height={667} />
     </div>
   );

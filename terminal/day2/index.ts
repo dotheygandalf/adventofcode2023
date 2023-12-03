@@ -1,6 +1,62 @@
 import path from "path";
 import { getData } from "../utils/readFile";
 
+export const parseGame = (game: string) => {
+  const gameData = game.split(":");
+  const draws = gameData[1].split(";");
+
+  const results: {
+    red: number;
+    blue: number;
+    green: number;
+  }[] = [];
+  let redMax = 0,
+    greenMax = 0,
+    blueMax = 0;
+  for (const draw of draws) {
+    let red = 0,
+      blue = 0,
+      green = 0;
+    draw.split(",").map((color) => {
+      const colorDraw = color.trim();
+      if (colorDraw.indexOf("red") > -1) {
+        red = Math.max(parseInt(colorDraw, 10), red);
+        if (red > redMax) {
+          redMax = red;
+        }
+      } else if (colorDraw.indexOf("blue") > -1) {
+        blue = Math.max(parseInt(colorDraw, 10), blue);
+        if (blue > blueMax) {
+          blueMax = blue;
+        }
+      } else if (colorDraw.indexOf("green") > -1) {
+        green = Math.max(parseInt(colorDraw, 10), green);
+        if (green > greenMax) {
+          greenMax = green;
+        }
+      }
+    });
+    results.push({
+      red,
+      blue,
+      green,
+    });
+  }
+
+  return results.map((result) => {
+    return {
+      result,
+      max: {
+        redMax,
+        blueMax,
+        greenMax,
+      },
+      game: gameData[0],
+      power: redMax * blueMax * greenMax,
+    };
+  });
+};
+
 const run_part_1 = async (file: string) => {
   const input = await getData(path.resolve(__dirname, file));
 
@@ -9,7 +65,7 @@ const run_part_1 = async (file: string) => {
   input.forEach((game) => {
     const gameData = game.split(":");
     const draws = gameData[1].split(";");
-    console.log(gameData[0]);
+    // console.log(gameData[0]);
     let redResult = 0,
       blueResult = 0,
       greenResult = 0;
@@ -31,7 +87,7 @@ const run_part_1 = async (file: string) => {
       }
     }
   });
-  console.log(answer);
+  // console.log(answer);
 };
 
 const run_part_2 = async (file: string) => {
@@ -59,7 +115,7 @@ const run_part_2 = async (file: string) => {
     }
     answer += redResult * greenResult * blueResult;
   });
-  console.log(answer);
+  // console.log(answer);
 };
 
 // Part 1
