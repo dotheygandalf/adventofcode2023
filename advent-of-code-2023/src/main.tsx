@@ -48,7 +48,7 @@ digit number."
       <>
         <Day
           number={3}
-          prompt="Find the min number of each colored cubes needed for the draws to be possible. Multiply the the number of red, green and blue cubes together and add them up to find the power."
+          prompt="Find the numbers that are adjacent to a a symbol."
         >
           <Day3 />
         </Day>
