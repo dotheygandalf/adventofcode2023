@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { plainText as input } from "../../../data/day2/input_1.text";
-import over9000 from "../../public/john-swan-9000-alt.png";
+import under9000_1 from "../../public/john-swan-9000-alt-1.png";
+import under9000_2 from "../../public/john-swan-9000-alt-2.png";
 import over90002 from "../../public/john-swan-9000-2.png";
 import { useInterval } from "../hooks/useInterval";
 import { parseGame } from "../../../terminal/day2";
@@ -31,7 +32,11 @@ export const Day2 = () => {
         if (power > 9000) {
           image.src = over90002;
         } else {
-          image.src = over9000;
+          if (Math.random() > 0.5) {
+            image.src = under9000_1;
+          } else {
+            image.src = under9000_2;
+          }
         }
         const scale_factor = Math.min(
           canvas.width / image.width,
