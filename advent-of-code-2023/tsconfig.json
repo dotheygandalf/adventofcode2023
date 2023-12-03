@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "../terminal/day1/index.ts", "../terminal/utils", "../terminal/day1/util.ts"],
+  "include": ["src", "../terminal/day1/index.ts", "../terminal/utils", "../terminal/day1/util.ts", "../terminal/day2"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
