@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
 import "./App.css";
 
+const days = [1, 2];
+
 const App = () => {
   return (
     <>
-      <h1>
-        <Link to={"day1"}>Day 1</Link>
-      </h1>
+      {days.map((day) => {
+        return (
+          <h1>
+            <Link to={`day${day}`}>Day {day}</Link>
+          </h1>
+        );
+      })}
     </>
   );
 };
