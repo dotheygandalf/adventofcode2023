@@ -8,4 +8,5 @@ const loadFileAndRun = async (fileName: string) => {
 };
 
 // Part 1
-loadFileAndRun("../../data/day3/input_1.text");
+// loadFileAndRun("../../data/day3/input_1.text");
+loadFileAndRun("../../data/day3/input_2.text");

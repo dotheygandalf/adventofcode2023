@@ -55,27 +55,26 @@ export const checkNumber = (found: IFrankenNumber, symbols: number[]) => {
 };
 
 export const run = (input: string[]) => {
-  // console.log(input);
-
-  const foundSymbols = input.map(findSymbols);
-  // console.log(foundSymbols);
-  const foundNumbers = input.map(findNumbers);
-  // console.log(foundNumbers);
-
-  let total = 0;
-  foundNumbers.forEach((line, lineIndex) => {
-    // console.log(line);
-    line.forEach((number) => {
-      let temp = 0;
-      if (lineIndex > 0) {
-        temp += checkNumber(number, foundSymbols[lineIndex - 1]);
-      }
-      temp += checkNumber(number, foundSymbols[lineIndex]);
-      if (lineIndex < foundNumbers.length - 1) {
-        temp += checkNumber(number, foundSymbols[lineIndex + 1]);
-      }
-      total += temp;
-    });
-  });
-  console.log(total);
+  // // console.log(input);
+  // const foundSymbols = input.map(findSymbols);
+  // // console.log(foundSymbols);
+  // const foundNumbers = input.map(findNumbers);
+  // // console.log(foundNumbers);
+  // let total = 0;
+  // foundNumbers.forEach((line, lineIndex) => {
+  //   // console.log(line);
+  //   line.forEach((number) => {
+  //     let temp = 0;
+  //     if (lineIndex > 0) {
+  //       temp += checkNumber(number, foundSymbols[lineIndex - 1]);
+  //     }
+  //     temp += checkNumber(number, foundSymbols[lineIndex]);
+  //     if (lineIndex < foundNumbers.length - 1) {
+  //       temp += checkNumber(number, foundSymbols[lineIndex + 1]);
+  //     }
+  //     total += temp;
+  //   });
+  // });
+  // console.log(total);
+  console.log(input);
 };
