@@ -16,10 +16,7 @@ export const explodeHighlight = (highlight: IHighlight) => {
 export const explodeHighlights = (highlights: IHighlight[]) => {
   let highlightedIndexes: number[] = [];
   highlights.map((highlight) => {
-    highlightedIndexes = [
-      ...highlightedIndexes,
-      ...explodeHighlight(highlight),
-    ];
+    highlightedIndexes = highlightedIndexes.concat(explodeHighlight(highlight));
   });
   return highlightedIndexes;
 };
