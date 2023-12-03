@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { plainText as input } from "../../../data/day2/input_1.text";
 import blankPage from "../../public/d54.jpg";
+import over9000 from "../../public/john-swan-9000.png";
 import { useInterval } from "../hooks/useInterval";
 import { parseGame } from "../../../terminal/day2";
 
@@ -26,7 +27,12 @@ export const Day2 = () => {
       const context = canvas.getContext("2d");
       if (context) {
         const image = new Image();
-        image.src = blankPage;
+
+        if (power > 9000) {
+          image.src = over9000;
+        } else {
+          image.src = blankPage;
+        }
         const scale_factor = Math.min(
           canvas.width / image.width,
           canvas.height / image.height
