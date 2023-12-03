@@ -25,8 +25,6 @@ export const Day3 = () => {
     return [];
   });
 
-  console.log(allHighlights);
-
   foundNumbers.forEach((line, lineIndex) => {
     // console.log(line);
     const highlights = allHighlights[lineIndex];
