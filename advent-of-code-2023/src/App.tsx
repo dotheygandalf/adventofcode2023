@@ -23,19 +23,6 @@ const App = () => {
                     .toUpperCase()
                     .split("")
                     .map((char, index) => {
-                      console.log(
-                        index,
-                        !(
-                          index >= line.firstNumber.start &&
-                          index <=
-                            line.firstNumber.start + line.firstNumber.length
-                        ) &&
-                          !(
-                            index >= line.secondNumber.start &&
-                            index <=
-                              line.secondNumber.start + line.secondNumber.length
-                          )
-                      );
                       return (
                         <span
                           className={classNames({
