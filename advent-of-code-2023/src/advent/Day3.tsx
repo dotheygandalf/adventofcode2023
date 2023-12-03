@@ -16,20 +16,65 @@ export const Day3 = () => {
     line: string[];
     highlights: IHighlight[];
   }[] = [];
+
+  // eslint-disable-next-line prefer-spread
+  const allHighlights: Array<Array<IHighlight>> = Array.apply(
+    null,
+    Array(lines.length)
+  ).map(() => {
+    return [];
+  });
+
+  console.log(allHighlights);
+
   foundNumbers.forEach((line, lineIndex) => {
     // console.log(line);
-    const highlights: IHighlight[] = [];
+    const highlights = allHighlights[lineIndex];
     line.forEach((number) => {
       // console.log(number);
       let above = false,
         at = false,
         below = false;
       if (lineIndex > 0) {
-        above = checkNumber(number, foundSymbols[lineIndex - 1]);
+        const aboveSymbolHighlight = checkNumber(
+          number,
+          foundSymbols[lineIndex - 1]
+        );
+        above = aboveSymbolHighlight > -1;
+        if (above) {
+          allHighlights[lineIndex - 1].push({
+            start: aboveSymbolHighlight,
+            length: 1,
+            color: "text-yellow-600",
+          });
+        }
       }
-      at = checkNumber(number, foundSymbols[lineIndex]);
+      const atLineSymbolHighlight = checkNumber(
+        number,
+        foundSymbols[lineIndex]
+      );
+      at = atLineSymbolHighlight > -1;
+      if (at) {
+        allHighlights[lineIndex].push({
+          start: atLineSymbolHighlight,
+          length: 1,
+          color: "text-yellow-600",
+        });
+      }
+
       if (lineIndex < foundNumbers.length - 1) {
-        below = checkNumber(number, foundSymbols[lineIndex + 1]);
+        const belowSymbolHighlight = checkNumber(
+          number,
+          foundSymbols[lineIndex + 1]
+        );
+        below = belowSymbolHighlight > -1;
+        if (below) {
+          allHighlights[lineIndex + 1].push({
+            start: belowSymbolHighlight,
+            length: 1,
+            color: "text-yellow-600",
+          });
+        }
       }
       console.log(above, at, below);
       if (above || at || below) {
@@ -38,21 +83,23 @@ export const Day3 = () => {
           length: number.frankenNumber.length,
           color: "text-green-600",
         });
-        console.log(number);
+        // console.log(number);
+      } else {
+        highlights.push({
+          start: number.foundIndex,
+          length: number.frankenNumber.length,
+          color: "text-blue-900",
+        });
       }
     });
     cookedLines.push({
       line: lines[lineIndex].split(""),
-      highlights: highlights.concat(
-        foundSymbols[lineIndex].map((symbolIndex) => {
-          return {
-            length: 1,
-            start: symbolIndex,
-            color: "text-red-600",
-          };
-        })
-      ),
+      highlights: highlights,
     });
+  });
+
+  cookedLines.forEach((line, index) => {
+    line.highlights.concat(allHighlights[index]);
   });
 
   return (

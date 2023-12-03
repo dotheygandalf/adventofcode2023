@@ -24,6 +24,13 @@ export const findNumbers = (line: string, lineIndex: number) => {
         foundIndex = index;
       }
       frankenNumber = frankenNumber.concat(char);
+      if (index === line.length - 1) {
+        result.push({
+          frankenNumber,
+          foundIndex,
+          line: lineIndex,
+        });
+      }
     } else {
       if (frankenNumber !== "") {
         result.push({
@@ -41,17 +48,17 @@ export const findNumbers = (line: string, lineIndex: number) => {
 
 export const checkNumber = (found: IFrankenNumber, symbols: number[]) => {
   // console.log(found, symbols);
-  let isFound = false;
+  let matchingSymbolIndex = -1;
   symbols.forEach((symbolIndex) => {
     if (
       symbolIndex >= found.foundIndex - 1 &&
       symbolIndex < found.foundIndex + found.frankenNumber.length + 1
     ) {
-      isFound = true;
+      matchingSymbolIndex = symbolIndex;
       return;
     }
   });
-  return isFound;
+  return matchingSymbolIndex;
 };
 
 export const run = (input: string[]) => {
