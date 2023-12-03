@@ -3,6 +3,9 @@ import { plainText as input } from "../../../data/day2/input_1.text";
 import under9000_1 from "../../public/john-swan-9000-alt-1.png";
 import under9000_2 from "../../public/john-swan-9000-alt-2.png";
 import over90002 from "../../public/john-swan-9000-2.png";
+
+import powerLevelBubble from "../../public/power-level.png";
+
 import { useInterval } from "../hooks/useInterval";
 import { parseGame } from "../../../terminal/day2";
 
@@ -28,7 +31,6 @@ export const Day2 = () => {
       const context = canvas.getContext("2d");
       if (context) {
         const image = new Image();
-
         if (power > 9000) {
           image.src = over90002;
         } else {
@@ -137,12 +139,18 @@ export const Day2 = () => {
 
           context.font = "26px monospace";
           context.fillText(`Power: ${power}`, 150, 570);
+
+          const speechBubbleImg = new Image();
+          speechBubbleImg.src = powerLevelBubble;
+          speechBubbleImg.onload = () => {
+            context.drawImage(speechBubbleImg, 220, 10, 200, 100);
+          };
         };
       }
-      // setGameCount((prev) => prev + 1);
+
       gameCount++;
     }
-  }, 100);
+  }, 250);
 
   return (
     <div className="pl-20 pt-10f">
