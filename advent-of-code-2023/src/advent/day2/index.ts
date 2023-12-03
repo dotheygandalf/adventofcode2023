@@ -64,4 +64,4 @@ const run_part_2 = async (file: string) => {
 
 // Part 1
 run_part_1("./input_1");
-// run_part_2("./input_2");
+run_part_2("./input_2");
