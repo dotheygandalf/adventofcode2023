@@ -46,11 +46,6 @@ jobs:
         with:
           # Upload dist repository
           path: './advent-of-code-2023/dist'
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload 404 page
-          path: './advent-of-code-2023/404.html'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
