@@ -27,6 +27,10 @@ export const Day2 = () => {
 
     const game = allGames[gameCount];
     if (canvasRef.current) {
+      if (currentGame !== game.game) {
+        power += game.power;
+        currentGame = game.game;
+      }
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       if (context) {
@@ -132,13 +136,13 @@ export const Day2 = () => {
           context.fillStyle = "black";
           context.fillText(`Red: ${game.result.red}`, 150, 522);
 
-          if (currentGame !== game.game) {
-            power += game.power;
-            currentGame = game.game;
-          }
-
           context.font = "26px monospace";
           context.fillText(`Power: ${power}`, 150, 570);
+
+          if (power > 9000) {
+            context.font = "40px Impact";
+            context.fillText(`It's over 9000!`, 420, 430);
+          }
 
           const speechBubbleImg = new Image();
           speechBubbleImg.src = powerLevelBubble;
@@ -150,7 +154,7 @@ export const Day2 = () => {
 
       gameCount++;
     }
-  }, 250);
+  }, 150);
 
   return (
     <div className="pl-20 pt-10f">
