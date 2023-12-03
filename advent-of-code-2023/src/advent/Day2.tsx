@@ -80,7 +80,6 @@ export const Day2 = () => {
               SQUARE_SIZE,
               SQUARE_SIZE
             );
-            context.save();
           }
           context.font = "10px monospace";
           context.fillStyle = "black";
@@ -95,7 +94,6 @@ export const Day2 = () => {
               SQUARE_SIZE,
               SQUARE_SIZE
             );
-            context.save();
           }
           context.fillStyle = "#307a1e";
           for (let i = 0; i < game.result.green; i++) {
@@ -105,7 +103,6 @@ export const Day2 = () => {
               SQUARE_SIZE,
               SQUARE_SIZE
             );
-            context.save();
           }
           context.font = "10px monospace";
           context.fillStyle = "black";
@@ -120,7 +117,6 @@ export const Day2 = () => {
               SQUARE_SIZE,
               SQUARE_SIZE
             );
-            context.save();
           }
           context.fillStyle = "#c9314f";
           for (let i = 0; i < game.result.red; i++) {
@@ -130,7 +126,6 @@ export const Day2 = () => {
               SQUARE_SIZE,
               SQUARE_SIZE
             );
-            context.save();
           }
           context.font = "10px monospace";
           context.fillStyle = "black";
@@ -157,7 +152,7 @@ export const Day2 = () => {
 
       gameCount++;
     }
-  }, 150);
+  }, 120);
 
   return (
     <div className="pl-20 pt-10f">
