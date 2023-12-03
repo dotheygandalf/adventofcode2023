@@ -87,13 +87,13 @@ export const processLine = (input: string): IProcessed => {
     outputFirstNumber = valueOfFirstWord;
     firstNumber = {
       start: indexOfFirstWord,
-      length: numberWords[valueOfFirstWord - 1]?.length - 1,
+      length: numberWords[valueOfFirstWord - 1]?.length,
     };
   } else {
     outputFirstNumber = parseInt(letters[indexOfFirstNumber]);
     firstNumber = {
       start: indexOfFirstNumber,
-      length: 0,
+      length: 1,
     };
   }
 
@@ -101,13 +101,13 @@ export const processLine = (input: string): IProcessed => {
     outputSecondNumber = valueOfSecondWord;
     secondNumber = {
       start: indexOfSecondWord,
-      length: numberWords[valueOfSecondWord - 1]?.length - 1,
+      length: numberWords[valueOfSecondWord - 1]?.length,
     };
   } else {
     outputSecondNumber = parseInt(letters[indexOfSecondNumber], 10);
     secondNumber = {
       start: indexOfSecondNumber,
-      length: 0,
+      length: 1,
     };
   }
 

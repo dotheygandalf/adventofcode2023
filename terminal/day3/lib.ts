@@ -11,9 +11,10 @@ export const findSymbols = (line: string): number[] => {
 interface IFrankenNumber {
   frankenNumber: string;
   foundIndex: number;
+  line: number;
 }
 
-export const findNumbers = (line: string) => {
+export const findNumbers = (line: string, lineIndex: number) => {
   let frankenNumber = "";
   let foundIndex = 0;
   const result: IFrankenNumber[] = [];
@@ -28,6 +29,7 @@ export const findNumbers = (line: string) => {
         result.push({
           frankenNumber,
           foundIndex,
+          line: lineIndex,
         });
       }
       frankenNumber = "";
@@ -37,18 +39,19 @@ export const findNumbers = (line: string) => {
   return result;
 };
 
-const checkNumber = (found: IFrankenNumber, symbols: number[]) => {
-  let foundNumber = 0;
+export const checkNumber = (found: IFrankenNumber, symbols: number[]) => {
+  // console.log(found, symbols);
+  let isFound = false;
   symbols.forEach((symbolIndex) => {
     if (
       symbolIndex >= found.foundIndex - 1 &&
       symbolIndex < found.foundIndex + found.frankenNumber.length + 1
     ) {
-      foundNumber = parseInt(found.frankenNumber, 10);
-      console.log("found: " + foundNumber);
+      isFound = true;
+      return;
     }
   });
-  return foundNumber;
+  return isFound;
 };
 
 export const run = (input: string[]) => {

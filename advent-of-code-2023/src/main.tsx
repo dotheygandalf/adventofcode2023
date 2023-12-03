@@ -6,6 +6,7 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import { Day } from "./Day.tsx";
 import { Day1 } from "./advent/day1/Day1.tsx";
 import { Day2 } from "./advent/Day2.tsx";
+import { Day3 } from "./advent/Day3.tsx";
 
 console.log(import.meta.env.MODE);
 
@@ -37,6 +38,19 @@ digit number."
           prompt="Find the min number of each colored cubes needed for the draws to be possible. Multiply the the number of red, green and blue cubes together and add them up to find the power."
         >
           <Day2 />
+        </Day>
+      </>
+    ),
+  },
+  {
+    path: "/day3",
+    element: (
+      <>
+        <Day
+          number={3}
+          prompt="Find the min number of each colored cubes needed for the draws to be possible. Multiply the the number of red, green and blue cubes together and add them up to find the power."
+        >
+          <Day3 />
         </Day>
       </>
     ),

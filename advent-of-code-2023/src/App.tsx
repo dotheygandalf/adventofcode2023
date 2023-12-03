@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./App.css";
 
-const days = [1, 2];
+const days = [1, 2, 3];
 
 const App = () => {
   return (
