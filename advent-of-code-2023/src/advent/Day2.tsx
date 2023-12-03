@@ -143,7 +143,7 @@ export const Day2 = () => {
           const speechBubbleImg = new Image();
           speechBubbleImg.src = powerLevelBubble;
           speechBubbleImg.onload = () => {
-            context.drawImage(speechBubbleImg, 220, 10, 200, 100);
+            context.drawImage(speechBubbleImg, 170, 10, 250, 100);
           };
         };
       }
