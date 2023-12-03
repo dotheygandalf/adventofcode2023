@@ -10,11 +10,6 @@ export const Day1 = () => {
   });
   return (
     <>
-      <h1>Day 1</h1>
-      <p className="text-xl font-mono pl-20 pr-20 pt-10">
-        Prompt: Find the first and last number. Then combine them to make a two
-        digit number.
-      </p>
       <div className="m-auto font-mono text-3xl pl-20 pt-10">
         <div className="grid grid-cols-2">
           {output.map((line) => {
