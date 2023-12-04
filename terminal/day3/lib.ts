@@ -70,7 +70,10 @@ export const run = (input: string) => {
   let sum = 0;
 
   const usedSymbols: {
-    [index: string]: number[];
+    [index: string]: {
+      number: IFrankenNumber;
+      line: number;
+    }[];
   } = {};
 
   foundNumbers.forEach((line, lineIndex) => {
@@ -88,12 +91,16 @@ export const run = (input: string) => {
         above = aboveSymbolHighlight > -1;
         if (above) {
           if (usedSymbols[`${lineIndex - 1}_${aboveSymbolHighlight}`]) {
-            usedSymbols[`${lineIndex - 1}_${aboveSymbolHighlight}`].push(
-              Number(number.frankenNumber)
-            );
+            usedSymbols[`${lineIndex - 1}_${aboveSymbolHighlight}`].push({
+              number,
+              line: lineIndex,
+            });
           } else {
             usedSymbols[`${lineIndex - 1}_${aboveSymbolHighlight}`] = [
-              Number(number.frankenNumber),
+              {
+                number,
+                line: lineIndex,
+              },
             ];
           }
         }
@@ -105,12 +112,16 @@ export const run = (input: string) => {
       at = atLineSymbolHighlight > -1;
       if (at) {
         if (usedSymbols[`${lineIndex}_${atLineSymbolHighlight}`]) {
-          usedSymbols[`${lineIndex}_${atLineSymbolHighlight}`].push(
-            Number(number.frankenNumber)
-          );
+          usedSymbols[`${lineIndex}_${atLineSymbolHighlight}`].push({
+            number,
+            line: lineIndex,
+          });
         } else {
           usedSymbols[`${lineIndex}_${atLineSymbolHighlight}`] = [
-            Number(number.frankenNumber),
+            {
+              number,
+              line: lineIndex,
+            },
           ];
         }
       }
@@ -123,12 +134,16 @@ export const run = (input: string) => {
         below = belowSymbolHighlight > -1;
         if (below) {
           if (usedSymbols[`${lineIndex + 1}_${belowSymbolHighlight}`]) {
-            usedSymbols[`${lineIndex + 1}_${belowSymbolHighlight}`].push(
-              Number(number.frankenNumber)
-            );
+            usedSymbols[`${lineIndex + 1}_${belowSymbolHighlight}`].push({
+              number,
+              line: lineIndex,
+            });
           } else {
             usedSymbols[`${lineIndex + 1}_${belowSymbolHighlight}`] = [
-              Number(number.frankenNumber),
+              {
+                number,
+                line: lineIndex,
+              },
             ];
           }
         }
@@ -141,19 +156,19 @@ export const run = (input: string) => {
 
   console.log(usedSymbols);
 
-  console.log(
-    Object.values(usedSymbols)
-      .map((found) => {
-        if (found.length === 2) {
-          return found[0] * found[1];
-        } else {
-          return 0;
-        }
-      })
-      .reduce((prev, curr) => {
-        return prev + curr;
-      }, 0)
-  );
+  // console.log(
+  //   Object.values(usedSymbols)
+  //     .map((found) => {
+  //       if (found.length === 2) {
+  //         return found[0] * found[1];
+  //       } else {
+  //         return 0;
+  //       }
+  //     })
+  //     .reduce((prev, curr) => {
+  //       return prev + curr;
+  //     }, 0)
+  // );
 
-  return sum;
+  return { sum, usedSymbols };
 };

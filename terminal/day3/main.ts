@@ -4,7 +4,7 @@ import { run } from "./lib";
 
 const loadFileAndRun = async (fileName: string) => {
   const input = await getData(path.resolve(__dirname, fileName));
-  console.log(run(input.join("\n")));
+  console.log(JSON.stringify(run(input.join("\n"))));
 };
 
 // Part 1
