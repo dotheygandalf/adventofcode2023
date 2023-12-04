@@ -48,7 +48,7 @@ digit number."
       <>
         <Day
           number={3}
-          prompt="Find the numbers that are adjacent to a a symbol."
+          prompt="Part 1: Find the numbers that are adjacent to a a symbol. Part 2: Find the pair of numbers that are both adjacent to a *."
         >
           <Day3 />
         </Day>
