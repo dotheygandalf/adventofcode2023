@@ -53,12 +53,20 @@ export const run_1 = (input: string[]) => {
     });
 
   // console.log(sections);
-  sections.forEach((section, sectionIndex) => {
-    // console.log(section);
-  });
   const results = seeds_2.map((seed) => {
-    return followSeed(seed, sections);
-  });
+    console.log("seeds", seed);
+
+    let lowest = Number.MAX_VALUE;
+    for (let i = seed[0]; i <= seed[0] + seed[1]; i++) {
+      const next = followSeed(i, sections);
+      if (next < lowest) {
+        console.log("next", next);
+        lowest = next;
+      }
+    }
+    console.log("lowest", lowest);
+    return lowest;
+  }, Number.MAX_VALUE);
   console.log(results);
   console.log(Math.min(...results));
 };
