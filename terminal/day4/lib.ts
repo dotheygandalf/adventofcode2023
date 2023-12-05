@@ -74,27 +74,4 @@ export const run_2 = (input: string[]) => {
       return prev + curr;
     })
   );
-
-  // winningGamesLookup.forEach((game) => {
-  //   if (accumulatedGames[game.game] === undefined) {
-  //     accumulatedGames[game.game] = 1;
-  //   } else {
-  //     accumulatedGames[game.game] += 1;
-  //   }
-  //   for (let i = game.game + 1; i < game.game + game.wins + 1; i++) {
-  //     if (accumulatedGames[i] === undefined) {
-  //       accumulatedGames[i] = 1;
-  //     } else {
-  //       accumulatedGames[i] += 1;
-  //     }
-  //   }
-  // });
-
-  // console.table(accumulatedGames);
-
-  // return Object.values(accumulatedGames).reduce((prev, curr) => {
-  //   return prev + curr;
-  // }, 0);
-
-  // return accumulatedGames;
 };
