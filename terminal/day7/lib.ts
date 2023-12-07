@@ -53,11 +53,9 @@ const handleJokers = ({ cards }: game) => {
 
   // handle full house
   if (
-    (cards[nonJokers[0]] === 2 && cards[nonJokers[1]] === 3) ||
-    (cards[nonJokers[1]] === 2 && cards[nonJokers[0]] === 3) ||
-    (cards[nonJokers[1]] === 2 &&
-      cards[nonJokers[0]] === 2 &&
-      numberOfJokers === 1)
+    cards[nonJokers[1]] === 2 &&
+    cards[nonJokers[0]] === 2 &&
+    numberOfJokers === 1
   ) {
     return 5;
   } else if (numberOfJokers === 5) {
