@@ -8,7 +8,7 @@ const loadFileAndRun = async (fileName: string) => {
   // console.log(parsedInput);
 
   const output = run_1(parsedInput);
-  console.log(output);
+  console.table(output);
 
   const answer = output.reduce<number>((prev, hand, index) => {
     return prev + hand.bet * (index + 1);

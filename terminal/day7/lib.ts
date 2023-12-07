@@ -7,6 +7,7 @@ interface game {
 }
 
 const cardValues = [
+  "J",
   "2",
   "3",
   "4",
@@ -38,15 +39,131 @@ export const parseInput = (input: string[]): game[] => {
     });
     return {
       cards,
-      hand,
+      hand: game[0],
       bet: parseInt(game[1]),
     };
   });
 };
 
+const isFiveOfAKind = (game: game) => {
+  if (Object.values(game).length === 1) {
+    return 7;
+  }
+};
+
+const isFourOfAKind = (game: game) => {
+  if (
+    Object.values(game).indexOf(4) > -1 &&
+    Object.values(game).filter((value) => {
+      return value === 1;
+    }).length === 1
+  ) {
+    return 5;
+  }
+};
+
+const isFullHouse = (game: game) => {
+  if (
+    (Object.values(game)[0] === 2 && Object.values(game)[1] === 3) ||
+    (Object.values(game)[1] === 2 && Object.values(game)[0] === 3)
+  ) {
+    return 4;
+  }
+};
+
+const isThreeOfAKind = (game: game) => {
+  if (
+    Object.values(game).indexOf(3) > -1 &&
+    Object.values(game).filter((value) => {
+      return value === 1;
+    }).length === 2
+  ) {
+    return 3;
+  }
+};
+
+const isTwoPairs = (game: game) => {
+  if (
+    Object.values(game).filter((value) => {
+      return value === 2;
+    }).length === 2
+  ) {
+    return 2;
+  }
+};
+
+const isOnePair = (game: game) => {
+  if (
+    Object.values(game).filter((value) => {
+      return value === 2;
+    }).length === 1
+  ) {
+    return 1;
+  }
+};
+
+const isAllUnique = (game: game) => {
+  if (
+    Object.values(game).filter((value) => {
+      return value === 1;
+    }).length === 5
+  ) {
+    return 0;
+  }
+};
+
+const handleJokers = ({ cards }: game) => {
+  const nonJokers = Object.keys(cards).filter((card) => {
+    return card !== "J";
+  });
+  const numberOfJokers = cards["J"] || 0;
+
+  // handle full house
+  if (
+    (cards[nonJokers[0]] === 2 && cards[nonJokers[1]] === 3) ||
+    (cards[nonJokers[1]] === 2 && cards[nonJokers[0]] === 3) ||
+    (cards[nonJokers[1]] === 2 &&
+      cards[nonJokers[0]] === 2 &&
+      numberOfJokers === 1)
+  ) {
+    return 5;
+  } else if (numberOfJokers === 5) {
+    return 7;
+  }
+  // hand two pairs is not possible with jokers
+
+  let greatestMatchingSet = 0;
+  nonJokers.forEach((nonJoker) => {
+    let nextMatchingSet = 0;
+    switch (cards[nonJoker] + numberOfJokers) {
+      case 5:
+        nextMatchingSet = 7;
+        break;
+      case 4:
+        nextMatchingSet = 6;
+        break;
+      case 3:
+        nextMatchingSet = 4;
+        break;
+      case 2:
+        nextMatchingSet = 2;
+    }
+    if (nextMatchingSet > greatestMatchingSet) {
+      greatestMatchingSet = nextMatchingSet;
+    }
+  });
+  return greatestMatchingSet;
+};
+
 const getPoints = (game: game) => {
   const cards = game.cards;
-  if (Object.values(cards).length === 1) {
+  const nonJokers = Object.keys(game.cards).filter((card) => {
+    return card !== "J";
+  });
+  if (
+    Object.values(cards).length === 1 ||
+    (Object.values(cards).length === 1 && nonJokers.length == 1)
+  ) {
     //five of a kind
     return 7;
   } else if (
@@ -83,6 +200,7 @@ const getPoints = (game: game) => {
       return value === 2;
     }).length === 1
   ) {
+    // one pair
     return 2;
   }
   return 1;
@@ -97,7 +215,6 @@ const tieBreaker = (a: game, b: game) => {
   for (let i = 0; i < a.hand.length; i++) {
     const aValue = cardValues.indexOf(aHand[i]);
     const bValue = cardValues.indexOf(bHand[i]);
-
     if (aValue === bValue) {
       // do nothing
     } else if (aValue > bValue) {
@@ -113,10 +230,17 @@ const tieBreaker = (a: game, b: game) => {
 
 export const run_1 = (games: game[]) => {
   return games.sort((a, b) => {
-    const aPoints = getPoints(a);
-    const bPoints = getPoints(b);
-
-    console.log(a.hand, aPoints, b.hand, bPoints);
+    let aPoints, bPoints;
+    if (a.cards["J"]) {
+      aPoints = handleJokers(a);
+    } else {
+      aPoints = getPoints(a);
+    }
+    if (b.cards["J"]) {
+      bPoints = handleJokers(b);
+    } else {
+      bPoints = getPoints(b);
+    }
 
     if (aPoints === bPoints) {
       return tieBreaker(a, b);
